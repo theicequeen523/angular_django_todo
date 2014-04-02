@@ -12,37 +12,49 @@ class Todo(models.Model):
     def __unicode__(self):
         return self.title
 
-
-class CookingMethod(models.Model):                  #
-    method = models.CharField(max_length=500)
-
-    def __unicode__(self):
-        return self.method
-
-
-class Tool(models.Model):                           # utinsiles used for the ingredient
-    tool = models.CharField(max_length=100)
+class Ingredient(models.Model):
+    name = models.CharField(max_length=50)
+    link = models.CharField(null=True, blank=True,max_length=100)
+    flavor = models.CharField(null=True, blank=True,max_length=100)
+    glyc_index = models.IntegerField(null=True, blank=True,max_length=10)
+    tag = models.ManyToManyField("Tag")
 
     def __unicode__(self):
-        return self.tool
+        return self.name
 
 
-class Equipment(models.Model):                      # Equipment to to Use
-    equipment = models.CharField(max_length=100)
+class Recipe(models.Model):
+    name = models.CharField(max_length=100)
+    link = models.CharField(null=True, blank=True,max_length=100)
+    prep_time = models.CharField(null=True, blank=True,max_length=50)
+    ingredient = models.ManyToManyField(Ingredient)
+    instruction = models.CharField(null=True, blank=True,max_length=2000)
+    temp = models.CharField(max_length=10)
+    time = models.CharField(max_length=10)
+    serv_size = models.IntegerField(null=True, blank=True, max_length=10)
+    tag = models.ManyToManyField("Tag")
+
 
     def __unicode__(self):
-        return self.equipment
+        return self.name
 
 
-class ShelfLife(models.Model):                      # Date bought and life of product
-    ShelfLife = models.CharField(max_length=100)
+class RecipeImage(models.Model):
+     img = models.ImageField(null=True, blank=True, upload_to="static/img")
+     recipe = models.ForeignKey(Recipe)
+
+
+class IngredientImage(models.Model):
+    img = models.ImageField(null=True, blank=True, upload_to="static/img")
+    ingredient = models.ForeignKey(Ingredient)
+
+
+class Tag(models.Model):
+    name = models.CharField(null=True, blank=True, max_length=30)
 
     def __unicode__(self):
-        return self.ShelfLife
+        return self.name
 
 
-class RecipeImage(models.Model):                    # Loads up pictures
-    image = models.ImageField(upload_to="logos")
 
-    def __unicode__(self):
-        return self.image
+
