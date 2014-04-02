@@ -13,13 +13,36 @@ class Todo(models.Model):
         return self.title
 
 
-class Cooking_Methods(models.model):
-    type_methods = models.CharField(max_length=16)
+class CookingMethod(models.Model):                  #
+    method = models.CharField(max_length=500)
+
+    def __unicode__(self):
+        return self.method
 
 
-class Tools(models.model):
+class Tool(models.Model):                           # utinsiles used for the ingredient
     tool = models.CharField(max_length=100)
 
+    def __unicode__(self):
+        return self.tool
 
-class Equipment(models.model):
+
+class Equipment(models.Model):                      # Equipment to to Use
     equipment = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return self.equipment
+
+
+class ShelfLife(models.Model):                      # Date bought and life of product
+    ShelfLife = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return self.ShelfLife
+
+
+class RecipeImage(models.Model):                    # Loads up pictures
+    image = models.ImageField(upload_to="logos")
+
+    def __unicode__(self):
+        return self.image
