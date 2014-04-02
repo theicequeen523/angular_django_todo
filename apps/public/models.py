@@ -11,3 +11,15 @@ class Todo(models.Model):
 
     def __unicode__(self):
         return self.title
+
+
+class Cooking_Methods(models.model):
+    type_methods = models.CharField(max_length=16)
+
+
+class Tools(models.model):
+    tool = models.CharField(max_length=100)
+
+
+class Equipment(models.model):
+    equipment = models.CharField(max_length=100)
