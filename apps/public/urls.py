@@ -13,5 +13,7 @@ urlpatterns = patterns('apps.public',
     url(r'^todos-django$', 'views.todos_django', name="todo_list_django"),
     url(r'^logout$', 'views.logout', name="user_logout"),
     url(r'^login$', 'views.login', name="user_login"),
+    url(r'^recipe$', 'views.recipe'),
     url(r'^$', 'views.home', name="home"),
+
 )

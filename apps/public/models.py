@@ -12,6 +12,7 @@ class Todo(models.Model):
     def __unicode__(self):
         return self.title
 
+
 class Ingredient(models.Model):
     name = models.CharField(max_length=50)
     link = models.CharField(null=True, blank=True,max_length=100)
@@ -40,8 +41,8 @@ class Recipe(models.Model):
 
 
 class RecipeImage(models.Model):
-     img = models.ImageField(null=True, blank=True, upload_to="static/img")
-     recipe = models.ForeignKey(Recipe)
+    img = models.ImageField(null=True, blank=True, upload_to="static/img")
+    recipe = models.ForeignKey(Recipe)
 
 
 class IngredientImage(models.Model):
@@ -54,7 +55,4 @@ class Tag(models.Model):
 
     def __unicode__(self):
         return self.name
-
-
-
 

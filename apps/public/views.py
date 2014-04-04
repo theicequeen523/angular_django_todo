@@ -152,3 +152,7 @@ def logout(request):
 @require_http_methods(["GET"])
 def home(request):
     return render(request, 'partials/home.tpl.html')
+
+
+def recipe(request):
+    return render(request, 'partials/recipe.tpl.html')
