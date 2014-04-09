@@ -29,6 +29,8 @@ angular.module('todoApp.controllers', [])
         $scope.heading = 'Home Page';
     }])
 
+//    .controller('EditRecipeController', ['$scope', 'Restangular', 'SessionService',  function ($scope, Restangular, SessionService) {
+//        $scope.recipe = {
 
     .controller('RecipeController', ['$scope', '$http', 'Restangular', 'SessionService', '$location', function ($scope, $http, Restangular, SessionService, $location) {
         $scope.recipe = {
@@ -85,8 +87,7 @@ angular.module('todoApp.controllers', [])
     }])
 
 
-    .
-    controller('TodoController', ['$scope', '$http', 'Restangular', 'SessionService', function ($scope, $http, Restangular, SessionService) {
+    .controller('TodoController', ['$scope', '$http', 'Restangular', 'SessionService', function ($scope, $http, Restangular, SessionService) {
         $scope.todos = [];
         $scope.types = {completed: false};
 

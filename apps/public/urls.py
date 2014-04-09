@@ -16,5 +16,6 @@ urlpatterns = patterns('apps.public',
                        url(r'^login$', 'views.login', name="user_login"),
                        url(r'^recipes$', 'views.recipe_list', name='recipe'),
                        url(r'^add_recipe$', 'views.add_recipe', name='add_recipe'),
+                       url(r'^edit_recipe/(?P<pk>[0-9]+)$', 'views.edit_recipe', name='edit_recipe'),
                        url(r'^recipes/(?P<pk>[0-9]+)$', 'views.recipe_detail', name='recipe_detail'),
                        url(r'^$', 'views.home', name="home"))

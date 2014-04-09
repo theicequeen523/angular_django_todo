@@ -53,6 +53,8 @@ def recipe_api(request, user_id):
 
         recipe.delete()
 
+
+
     # return render(request, HttpResponseRedirect("/recipes/")
     # response = {}
     # user = request.user
@@ -61,6 +63,7 @@ def recipe_api(request, user_id):
 
     data = serializers.serialize("json", Recipe.objects.all())
     return HttpResponse(data, content_type="application/json")
+
 
 
 @require_http_methods(["GET", "POST", "PUT", "DELETE", "OPTIONS"])
@@ -211,19 +214,26 @@ def home(request):
 def recipe_list(request):
     response = {}
     user = request.user
-    response['recipe_list'] = Recipe.objects.all()
+    response['recipes'] = Recipe.objects.all()
     return render(request, 'partials/recipes.tpl.html', response)
 
 
 def recipe_detail(request, pk):
     response = {}
     user = request.user
-    response['recipe_detail'] = Recipe.objects.get(pk=pk)
+    response['recipes'] = Recipe.objects.get(pk=pk)
     return render(request, 'partials/recipe_detail.tpl.html', response)
 
 
 def add_recipe(request):
     response = {}
     user = request.user
-    response['add_recipe'] = Recipe.objects.all()
+    response['recipes'] = Recipe.objects.all()
     return render(request, 'partials/add_recipe.tpl.html', response)
+
+@login_required(function=None, redirect_field_name=None, login_url='/login')
+def edit_recipe(request, pk):
+    response = {}
+    user = request.user
+    response['recipes'] = Recipe.objects.get(pk=pk)
+    return render(request, 'partials/edit_recipe.tpl.html', response)
