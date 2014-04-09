@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('todoApp.services', ['angularLocalStorage'])
-    .factory('SessionService', ['storage', function(storage) {
+    .factory('SessionService', ['storage', function (storage) {
         return {
-            saveUserSession: function(data) {
+            saveUserSession: function (data) {
                 storage.set('user', data);
             },
-            getUserSession: function() {
+            getUserSession: function () {
                 return storage.get('user');
             },
-            removeUserSession: function() {
+            removeUserSession: function () {
                 storage.remove('user');
             }
         };

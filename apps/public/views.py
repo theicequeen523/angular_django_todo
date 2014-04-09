@@ -10,7 +10,58 @@ from json import loads
 from urlparse import parse_qs
 
 from django.contrib.auth.models import User
-from .models import Todo
+from .models import *
+
+
+def recipe_list(request):
+    recipes = Recipe.objects.all()
+    return render(request, "recipe.html", {"recipes": recipes})
+
+
+@require_http_methods(["GET", "POST", "PUT", "DELETE", "OPTIONS"])
+def recipe_api(request, user_id):
+    user = User.objects.get(pk=user_id)
+
+    if request.method == "POST":
+        # from datetime import datetime
+
+        json = loads(request.body)
+        name = json['name'] if json.has_key('name') else None
+        description = json['description'] if json.has_key('description') else None
+        link = json['link'] if json.has_key('link') else None
+        prep_time = json['prep_time'] if json.has_key('prep_time') else None
+        instruction = json['instruction'] if json.has_key('instruction') else None
+        temp = json['temp'] if json.has_key('temp') else None
+        time = json['time'] if json.has_key('time') else None
+        serv_size = json['serv_size'] if json.has_key('serv_size') else None
+
+        # if '&' not in request.body:
+        #     json = loads(request.body)
+        #
+        #     if json.has_key('title'):
+        #         title = json['title']
+        #     if json.has_key('description'):
+        #         description = json['description']
+
+        Recipe.objects.create(name=name, description=description, link=link, prep_time=prep_time,
+                              instruction=instruction, temp=temp, time=time, serv_size=serv_size)
+
+
+    elif request.method == "DELETE":
+        recipe_id = request.REQUEST['id'] if request.REQUEST.has_key('id') else parse_qs(request.body)['id'][0]
+        recipe = Recipe.objects.get(pk=recipe_id)
+
+        recipe.delete()
+
+    # return render(request, HttpResponseRedirect("/recipes/")
+    # response = {}
+    # user = request.user
+    # response['recipe_list'] = Recipe.objects.all()
+    # return render(request, 'partials/recipes.tpl.html', response)
+
+    data = serializers.serialize("json", Recipe.objects.all())
+    return HttpResponse(data, content_type="application/json")
+
 
 @require_http_methods(["GET", "POST", "PUT", "DELETE", "OPTIONS"])
 def todo_api(request, user_id):
@@ -31,6 +82,9 @@ def todo_api(request, user_id):
                 description = json['description']
 
         Todo.objects.create(title=title, description=description, create_date=datetime.now(), user=user)
+
+
+
     elif request.method == "PUT":
         todo = None
         if request.body and '&' in request.body:
@@ -154,5 +208,22 @@ def home(request):
     return render(request, 'partials/home.tpl.html')
 
 
-def recipe(request):
-    return render(request, 'partials/recipe.tpl.html')
+def recipe_list(request):
+    response = {}
+    user = request.user
+    response['recipe_list'] = Recipe.objects.all()
+    return render(request, 'partials/recipes.tpl.html', response)
+
+
+def recipe_detail(request, pk):
+    response = {}
+    user = request.user
+    response['recipe_detail'] = Recipe.objects.get(pk=pk)
+    return render(request, 'partials/recipe_detail.tpl.html', response)
+
+
+def add_recipe(request):
+    response = {}
+    user = request.user
+    response['add_recipe'] = Recipe.objects.all()
+    return render(request, 'partials/add_recipe.tpl.html', response)

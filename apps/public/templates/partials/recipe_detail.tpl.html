@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ recipe.name }}
+{% endblock title %}
+
+{% block recipe_link %}
+    <li class="active"><a href="/recipes">Recipe Detail</a></li>
+{% endblock recipe_link %}
+
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+            <tr>
+                <th>Description</th>
+            <tr>
+                <th>Link</th>
+            </tr>
+            <tr>
+                <th>Prep Time</th>
+            </tr>
+            <tr>
+                <th>Ingredients</th>
+            </tr>
+            <tr>
+                <th>Instructions</th>
+            </tr>
+            <tr>
+                <th>Temperature</th>
+            </tr>
+            <tr>
+                <th>Servings</th>
+            </tr>
+            <tr>
+                <th>Cook Time</th>
+            </tr>
+            <tr>
+                <th>Tags</th>
+            </tr>
+            <tr>
+                <th>Photo</th>
+            </tr>
+            <tr>
+            </tr>
+            </thead>
+            <tbody>
+            {% if recipe_detail %}
+                <tr>
+
+                    <td>{{ recipe_detail.name }}</td>
+
+                    <td>{{ recipe_detail.description }}</td>
+
+                    <td>{{ recipe_detail.link }}</td>
+
+                    <td>{{ recipe_detail.prep_time }}</td>
+
+                    <td>{{ recipe_detail.ingredient }}</td>
+
+                    <td>{{ recipe_detail.instruction }}</td>
+
+                    <td>{{ recipe_detail.temp }}</td>
+
+                    <td>{{ recipe_detail.serv_size }}</td>
+
+                    <td>{{ recipe_detail.time }}</td>
+
+                    <td>{{ recipe_detail.tag }}</td>
+
+                    <td>{{ recipeImage.img }}</td>
+
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>{% endblock content %}

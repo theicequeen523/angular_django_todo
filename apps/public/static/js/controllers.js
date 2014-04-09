@@ -28,7 +28,65 @@ angular.module('todoApp.controllers', [])
     .controller('HomeController', ['$scope', function ($scope) {
         $scope.heading = 'Home Page';
     }])
-    .controller('TodoController', ['$scope', '$http', 'Restangular', 'SessionService', function ($scope, $http, Restangular, SessionService) {
+
+
+    .controller('RecipeController', ['$scope', '$http', 'Restangular', 'SessionService', '$location', function ($scope, $http, Restangular, SessionService, $location) {
+        $scope.recipe = {
+            name: '',
+            description: '',
+            link: '',
+            prep_time: '',
+            instruction: '',
+            temp: '',
+            time: '',
+            serv_size: ''
+        }
+
+        $scope.user = SessionService.getUserSession();
+        var baseRecipe = Restangular.all('api/recipe');
+
+        baseRecipe.customGETLIST($scope.user.user_id)
+            .then(function (listResponse) {
+                reloadRecipes(listResponse);
+            });
+
+        function reloadRecipes(data) {
+            // Reloads the list of recipes into an array usable on the scope.
+
+            $scope.recipe_list = [];
+            for (var i = 0; i < data.length; i++) {
+                var recipe = data[i].fields;
+                recipe['id'] = data[i].pk;
+//                if (!recipe['description']) {
+//                    recipe['description'] = 'Empty';
+//                }
+                $scope.recipe_list.push(recipe);
+            }
+        }
+
+        $scope.user = SessionService.getUserSession();
+        $scope.addRecipe = function (recipe) {
+            baseRecipe.all($scope.user.user_id).customPOST(recipe)
+                .then(function (data) {
+//                    reloadRecipe(data);
+//                        toastr.success('You successfully added a new recipe!');
+                    window.location = '/recipes';
+                });
+        }
+
+        $scope.removeRecipe = function (recipe) {
+            baseRecipe.all($scope.user.user_id).remove(recipe)
+                .then(function (data) {
+                    reloadRecipes(data);
+
+                    toastr.success('You successfully removed your recipe!');
+                });
+        };
+    }])
+
+
+    .
+    controller('TodoController', ['$scope', '$http', 'Restangular', 'SessionService', function ($scope, $http, Restangular, SessionService) {
         $scope.todos = [];
         $scope.types = {completed: false};
 
@@ -36,7 +94,7 @@ angular.module('todoApp.controllers', [])
         var baseTodo = Restangular.all('api/todo');
 
         baseTodo.customGETLIST($scope.user.user_id)
-            .then(function(data) {
+            .then(function (data) {
                 reloadTodos(data);
             });
 
@@ -93,7 +151,7 @@ angular.module('todoApp.controllers', [])
 
         $scope.removeTodo = function (todo) {
             baseTodo.all($scope.user.user_id).remove(todo)
-                .then(function(data) {
+                .then(function (data) {
                     reloadTodos(data);
 
                     toastr.success('You successfully removed your todo!');
