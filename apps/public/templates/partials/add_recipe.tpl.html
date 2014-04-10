@@ -10,20 +10,19 @@
 {% block content %}
     <div ng-controller="RecipeController">
         <form class="form-inline">
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.name" placeholder="Name"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.description"
-                   placeholder="Description"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.link" placeholder="Link"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.prep_time"
-                   placeholder="Prep_Time"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.instruction"
-                   placeholder="Instruction"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.temp" placeholder="Temp"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.time" placeholder="Time"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.serv_size"
-                   placeholder="Serving Size"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="todo.description"
-                   placeholder="Todo Description"/></br><br/>
+            <input type="recipe-title" type="text" class="form-control" ng-model="recipe.name" placeholder="Name"/><br/>
+            <input type="recipe-title" type="text" class="form-control" ng-model="recipe.description" placeholder="Description"/><br/>
+            <input type="recipe-title" type="text" class="form-control" ng-model="recipe.link" placeholder="Link"/><br/>
+            <input type="recipe-title" type="text" class="form-control" ng-model="recipe.prep_time" placeholder="Prep Time"/><br/>
+            <input type="recipe-title" type="text" class="form-control" ng-model="recipe.instruction" placeholder="Instruction"/><br/>
+            <input type="recipe-title" type="text" class="form-control" ng-model="recipe.temp" placeholder="Temp"/><br/>
+            <input type="recipe-title" type="text" class="form-control" ng-model="recipe.time" placeholder="Cook Time"/><br/>
+            <input type="recipe-title" type="text" class="form-control" ng-model="recipe.serv_size" placeholder="Serving Size"/><br/>
+            </br>
+            <select type = "text" ng-model="selectedTag" ng-options="tags.pk as tag.fields.name for tag in tags"></select>
+            </br>
+            </br>
+            </br>
             <button id="add-btn" class="btn btn-success" ng-click="addRecipe(recipe);">Add</button>
         </form>
     </div>

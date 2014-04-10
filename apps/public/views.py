@@ -17,6 +17,11 @@ def recipe_list(request):
     recipes = Recipe.objects.all()
     return render(request, "recipe.html", {"recipes": recipes})
 
+@require_http_methods(["GET", "POST", "PUT", "DELETE", "OPTIONS"])
+def tag_api(request):
+    tags = Tag.objects.all()
+    data = serializers.serialize("json", Tag.objects.all())
+    return HttpResponse(data, content_type="application/json")
 
 @require_http_methods(["GET", "POST", "PUT", "DELETE", "OPTIONS"])
 def recipe_api(request, user_id):

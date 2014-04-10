@@ -46,10 +46,20 @@ angular.module('todoApp.controllers', [])
 
         $scope.user = SessionService.getUserSession();
         var baseRecipe = Restangular.all('api/recipe');
+        var baseTag = Restangular.all('api/tag');
+
+        baseTag.customGETLIST()
+            .then(function (data) {
+                console.log(data)
+                reloadTags(data);
+     });
+
 
         baseRecipe.customGETLIST($scope.user.user_id)
             .then(function (listResponse) {
-                reloadRecipes(listResponse);
+                console.log(data)
+//                reloadRecipes(listResponse);
+                $scope.tags = data;
             });
 
         function reloadRecipes(data) {
@@ -63,6 +73,14 @@ angular.module('todoApp.controllers', [])
 //                    recipe['description'] = 'Empty';
 //                }
                 $scope.recipe_list.push(recipe);
+            }
+        }
+           function reloadTags(data) {
+            $scope.tags = [];
+            for (var i = 0; i < data.length; i++) {
+                var tag = data[i].fields;
+                tag['id'] = data[i].pk;
+                $scope.tag.push(tag);
             }
         }
 
