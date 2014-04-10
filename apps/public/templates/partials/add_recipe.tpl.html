@@ -8,7 +8,7 @@
     <li class="active"><a href="recipes">Add Recipe</a></li>
 {% endblock recipe_link %}
 {% block content %}
-    <div ng-controller="RecipeController">
+    <div class="add-recipe-table-background" ng-controller="RecipeController">
         <form class="form-inline">
             <input type="recipe-title" type="text" class="form-control" ng-model="recipe.name" placeholder="Name"/><br/>
             <input type="recipe-title" type="text" class="form-control" ng-model="recipe.description" placeholder="Description"/><br/>

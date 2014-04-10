@@ -30,6 +30,7 @@
 </head>
 
 <body>
+
 {% block navigation %}
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -80,40 +81,22 @@
         </div>
     </div>
 {% endblock navigation %}
-
 <div class="container">
     <div class="starter-template">
         {% block content %} Base content - should never see {% endblock content %}
 
-        <hr/>
-
-        <div style="text-align: left;">
-                    <pre>
-                        User:
-                        {% if user %}
-                            Username: {{ user.username }}
-                            Password: {{ user.password }}
-                            First Name: {{ user.first_name }}
-                            Last Name: {{ user.last_name }}
-                            Email: {{ user.email }}
-                            Test: {{ request.session.test }}
-                        {% endif %}
-                    </pre>
-        </div>
-
         {% block footer %}
-            <hr/>
-
             <footer>
-                <div class="container">
-                    <p class="text-muted credit">
-                        Copyright &copy; Christine Stephenson 2014 &middot;
-                    </p>
-                </div>
+
             </footer>
         {% endblock footer %}
     </div>
 </div>
+<div class="container">
+                    <p class="text-muted credit text-color-black">
+                        Copyright &copy; Christine Stephenson 2014
+                    </p>
+                </div>
 <!-- /.container -->
 
 <!-- javascript -->
