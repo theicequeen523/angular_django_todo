@@ -19,11 +19,11 @@
             <input type="recipe-title" type="text" class="form-control" ng-model="recipe.time" placeholder="Cook Time"/><br/>
             <input type="recipe-title" type="text" class="form-control" ng-model="recipe.serv_size" placeholder="Serving Size"/><br/>
             </br>
-            <select type = "text" ng-model="selectedTag" ng-options="tags.pk as tag.fields.name for tag in tags"></select>
+            <select type="text" ng-model="recipe.tag" ng-options="tag.pk as tag.fields.name for tag in tags"></select>
             </br>
             </br>
             </br>
-            <button id="add-btn" class="btn btn-success" ng-click="addRecipe(recipe);">Add</button>
+            <button id="add-btn" class="btn btn-success" ng-click="addRecipe(recipe);">Add Recipe</button>
         </form>
     </div>
 {% endblock content %}

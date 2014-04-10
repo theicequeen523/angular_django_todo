@@ -50,16 +50,17 @@ angular.module('todoApp.controllers', [])
 
         baseTag.customGETLIST()
             .then(function (data) {
-                console.log(data)
-                reloadTags(data);
+//                console.log(data)
+//                reloadTags(data);
+                $scope.tags = data;
      });
 
 
         baseRecipe.customGETLIST($scope.user.user_id)
             .then(function (listResponse) {
-                console.log(data)
-//                reloadRecipes(listResponse);
-                $scope.tags = data;
+//                console.log(data)
+                reloadRecipes(listResponse);
+
             });
 
         function reloadRecipes(data) {
@@ -80,7 +81,7 @@ angular.module('todoApp.controllers', [])
             for (var i = 0; i < data.length; i++) {
                 var tag = data[i].fields;
                 tag['id'] = data[i].pk;
-                $scope.tag.push(tag);
+                $scope.tags.push(tag);
             }
         }
 

@@ -29,12 +29,12 @@ class Recipe(models.Model):
     description = models.CharField(max_length=100)
     link = models.CharField(null=True, blank=True, max_length=100)
     prep_time = models.CharField(null=True, blank=True, max_length=50)
-    # ingredient = models.ManyToManyField(Ingredient)
+    ingredient = models.ManyToManyField(Ingredient)
     instruction = models.CharField(null=True, blank=True, max_length=2000)
     temp = models.CharField(max_length=10)
     time = models.CharField(max_length=10)
     serv_size = models.IntegerField(null=True, blank=True, max_length=10)
-    # tag = models.ManyToManyField("Tag")
+    tag = models.ManyToManyField("Tag")
 
 
     def __unicode__(self):
