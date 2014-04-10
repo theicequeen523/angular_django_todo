@@ -34,11 +34,14 @@ def recipe_api(request, user_id):
         name = json['name'] if json.has_key('name') else None
         description = json['description'] if json.has_key('description') else None
         link = json['link'] if json.has_key('link') else None
+        ingredient = json['ingredient'] if json.has_key('ingredient') else None
         prep_time = json['prep_time'] if json.has_key('prep_time') else None
         instruction = json['instruction'] if json.has_key('instruction') else None
         temp = json['temp'] if json.has_key('temp') else None
         time = json['time'] if json.has_key('time') else None
         serv_size = json['serv_size'] if json.has_key('serv_size') else None
+        tag = json['tag'] if json.has_key('tag') else None
+
 
         # if '&' not in request.body:
         #     json = loads(request.body)
@@ -48,8 +51,8 @@ def recipe_api(request, user_id):
         #     if json.has_key('description'):
         #         description = json['description']
 
-        Recipe.objects.create(name=name, description=description, link=link, prep_time=prep_time,
-                              instruction=instruction, temp=temp, time=time, serv_size=serv_size)
+        Recipe.objects.create(name=name, description=description, link=link, ingredient=ingredient, prep_time=prep_time,
+                              instruction=instruction, temp=temp, time=time, serv_size=serv_size, tag=tag)
 
 
     elif request.method == "DELETE":
