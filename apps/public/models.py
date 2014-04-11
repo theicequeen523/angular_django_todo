@@ -25,6 +25,7 @@ class Ingredient(models.Model):
 
 
 class Recipe(models.Model):
+    user = models.ForeignKey(User)
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
     link = models.CharField(null=True, blank=True, max_length=100)
@@ -35,6 +36,7 @@ class Recipe(models.Model):
     time = models.CharField(max_length=10)
     serv_size = models.IntegerField(null=True, blank=True, max_length=10)
     tag = models.ManyToManyField("Tag")
+    public_recipe = models.BooleanField(default=False, blank=False, null=False)
 
 
     def __unicode__(self):

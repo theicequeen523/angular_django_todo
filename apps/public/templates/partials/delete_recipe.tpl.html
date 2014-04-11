@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Delete Recipe
+{% endblock title %}
+
+{% block content %}
+    <form name="deleteRecipeForm" action="{{ action }}" method="post">
+        {% csrf_token %}
+
+        <h2>Delete Recipe Item?</h2>
+
+        <p>This is the name: {{ recipe.name }}</p>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Delete Recipe</button>
+    </form>
+{% endblock content %}

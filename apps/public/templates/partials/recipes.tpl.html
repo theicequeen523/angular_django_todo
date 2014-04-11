@@ -28,9 +28,9 @@
             <tbody>
                 {%  verbatim %}
                     <tr ng-repeat="recipe in recipe_list | filter:query">
-                        <td class="left-align"><button id="delete-btn" class="btn btn-danger" ng-click="removeRecipe(recipe);"></a>Delete</button></td>
-                        <td class="left-align"><button id="edit-btn" class="btn btn-warning"><a href="/edit_recipe"></a>Edit</button></td>
-                        <td class="left-align"><button id="view-btn" class="btn btn-success"><a href="/recipes/{{ recipe.id }}">View</a></button></td>
+                        <td class="left-align"><button id="delete-btn" class="btn btn-danger"><a href="/recipe/delete/{{ recipe.id }}" style="color:white;">Delete</a></button></td>
+                        <td class="left-align"><button id="edit-btn" class="btn btn-warning"><a href="/recipe/{{ recipe.id }}" style="color:white;">Edit</a></button></td>
+                        <td class="left-align"><button id="view-btn" class="btn btn-success"><a href="/recipe/{{ recipe.id }}/view" style="color:white;">View</a></button></td>
                         <td ng-bind="recipe.name" class="left-align"></td>
                         <td ng-bind="recipe.description" class="left-align"></td>
                         <td ng-bind="recipe.time" class="left-align"></td>
@@ -42,3 +42,18 @@
         </table>
     </div>
 {% endblock content %}
+
+{% block extra_js %}
+    <script type="application/javascript">
+        toastr.options = {
+            "positionClass": "toast-top-center"
+        };
+        {% if message %}
+            toastr.success('{{ message | safe}}');
+        {% elif error_message %}
+            toastr.error('{{ error_message | safe }}');
+        {% elif request.session.message %}
+            toastr.success('{{ request.session.message }}');
+        {% endif %}
+    </script>
+{% endblock extra_js %}

@@ -4,28 +4,44 @@
     Edit Recipe
 {% endblock title %}
 
-{% block recipe_link %}
-    <li class="active"><a href="recipes">Edit Recipe</a></li>
-{% endblock recipe_link %}
-
 {% block content %}
-    <div ng-controller="RecipeController">
-        <form class="form-inline">
-            <input  type="text" class="form-control" ng-model="recipe.name" placeholder="Name"/><br/>
-            <input type="text" class="form-control" ng-model="recipe.description"
-                   placeholder="Description"/><br/>
-            <input  type="text" class="form-control" ng-model="recipe.link" placeholder="Link"/><br/>
-            <input  type="text" class="form-control" ng-model="recipe.prep_time"
-                   placeholder="Prep_Time"/><br/>
-            <input  type="text" class="form-control" ng-model="recipe.instruction"
-                   placeholder="Instruction"/><br/>
-            <input  type="text" class="form-control" ng-model="recipe.temp" placeholder="Temp"/><br/>
-            <input  type="text" class="form-control" ng-model="recipe.time" placeholder="Time"/><br/>
-            <input  type="text" class="form-control" ng-model="recipe.serv_size"
-                   placeholder="Serving Size"/><br/>
-            <input  type="text" class="form-control" ng-model="todo.description"
-                   placeholder="Todo Description"/><br/>
-            <button id="edit-btn" class="btn btn-success" ng-click="editRecipe(recipe);">Edit</button>
+    <div class="edit-recipe-table-background">
+        <form method="post" action="{{ action }}">
+            {% csrf_token %}
+
+            <h4>Edit Recipe Item</h4>
+
+            <div class="spacersmall-bottom"></div>
+
+            {% for field in form %}
+                {% if 'User' in field.label_tag %}
+                    {{ field.as_hidden }}
+                {% elif 'Public recipe' in field.label_tag %}
+                    <div class="spacersmall-top"></div>
+                    {{ field.label_tag }}{{ field }}
+                    <div class="spacersmall-bottom"></div>
+                {% else %}
+                    {{ field }}
+                    {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+
+            <button id="add-btn" class="btn btn-success" type="submit">Update Recipe</button>
         </form>
     </div>
 {% endblock content %}
+
+{% block extra_js %}
+    <script type="application/javascript">
+        toastr.options = {
+            "positionClass": "toast-top-center"
+        };
+        {% if message %}
+            toastr.success('{{ message | safe}}');
+        {% elif error_message %}
+            toastr.error('{{ error_message | safe }}');
+        {% elif request.session.message %}
+            toastr.success('{{ request.session.message }}');
+        {% endif %}
+    </script>
+{% endblock extra_js %}

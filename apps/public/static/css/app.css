@@ -12,11 +12,27 @@ body {
     -webkit-box-shadow: 0 1px 15px rgba(34,25,25,0.7);
 }
 
+.spacersmall-bottom {
+    padding-bottom: 20px;
+}
+
+.spacersmall-top {
+    padding-top: 20px;
+}
+
 .white-background {
     background-color: floralwhite;
 }
 
 .add-recipe-table-background {
+    background-color: floralwhite;
+    max-width: 215px;
+    margin: auto;
+    padding-bottom: 12px;
+    padding-top: 10px;
+}
+
+.edit-recipe-table-background {
     background-color: floralwhite;
     max-width: 215px;
     margin: auto;

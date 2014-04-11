@@ -5,19 +5,24 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 
 urlpatterns = patterns('apps.public',
-                       # Rest Pattern for Todo Items
-                       url(r'^api/todo/(?P<user_id>[0-9]+)$', 'views.todo_api', name="create_todo"),
-                       url(r'^api/recipe/(?P<user_id>[0-9]+)$', 'views.recipe_api', name="create_recipe"),
-                       url(r'^api/tag$', 'views.tag_api', name='tag_api'),
+    # Rest Pattern for Todo Items
+    url(r'^api/todo/(?P<user_id>[0-9]+)$', 'views.todo_api', name="create_todo"),
+    url(r'^api/recipe/(?P<user_id>[0-9]+)$', 'views.recipe_api', name="create_recipe"),
+    url(r'^api/tag$', 'views.tag_api', name='tag_api'),
 
-                       url(r'^user/id$', 'views.get_current_user_id', name="get_current_user_id"),
-                       url(r'^todos$', 'views.todos', name="todo_list_html"),
-                       url(r'^todos-django$', 'views.todos_django', name="todo_list_django"),
-                       url(r'^logout$', 'views.logout', name="user_logout"),
-                       url(r'^login$', 'views.login', name="user_login"),
-                       url(r'^recipes$', 'views.recipe_list', name='recipe'),
-                       url(r'^add_recipe$', 'views.add_recipe', name='add_recipe'),
-                       url(r'^add_ingredient/(?P<recipe_id>[0-9]+)$', 'views.add_ingredient', name='add_ingredient'),
-                       url(r'^edit_recipe/(?P<pk>[0-9]+)$', 'views.edit_recipe', name='edit_recipe'),
-                       url(r'^recipes/(?P<pk>[0-9]+)$', 'views.recipe_detail', name='recipe_detail'),
-                       url(r'^$', 'views.home', name="home"))
+    url(r'^user/id$', 'views.get_current_user_id', name="get_current_user_id"),
+    url(r'^todos$', 'views.todos', name="todo_list_html"),
+    url(r'^todos-django$', 'views.todos_django', name="todo_list_django"),
+    url(r'^logout$', 'views.logout', name="user_logout"),
+    url(r'^login$', 'views.login', name="user_login"),
+    url(r'^recipes$', 'views.recipe_list', name='recipe'),
+    url(r'^add_recipe$', 'views.add_recipe', name='add_recipe'),
+    url(r'^add_ingredient/(?P<recipe_id>[0-9]+)$', 'views.add_ingredient', name='add_ingredient'),
+    # url(r'^edit_recipe/(?P<pk>[0-9]+)$', 'views.edit_recipe', name='edit_recipe'),
+    url(r'^recipes/(?P<pk>[0-9]+)$', 'views.recipe_detail', name='recipe_detail'),
+
+    url(r'^recipe/add$', 'views.add_recipe', name="recipe_add"),
+    url(r'^recipe/(?P<pk>[0-9]+)$', 'views.edit_recipe', name="recipe_edit"),
+    url(r'^recipe/delete/(?P<pk>[0-9]+)$', 'views.delete_recipe', name="recipe_delete"),
+
+    url(r'^$', 'views.home', name="home"))

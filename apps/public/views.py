@@ -11,6 +11,7 @@ from urlparse import parse_qs
 
 from django.contrib.auth.models import User
 from .models import *
+from .forms import AddRecipeForm, EditRecipeForm
 
 
 def recipe_list(request):
@@ -222,8 +223,12 @@ def home(request):
 @login_required(function=None, redirect_field_name=None, login_url='/login')
 def recipe_list(request):
     response = {}
+    if request.session['message']:
+        response['message'] = request.session['message']
+        request.session.message = None
+
     user = request.user
-    response['recipes'] = Recipe.objects.all()
+    response['recipes'] = Recipe.objects.filter(user_id=user.id)
     return render(request, 'partials/recipes.tpl.html', response)
 
 
@@ -235,21 +240,67 @@ def recipe_detail(request, pk):
 
 
 @login_required(function=None, redirect_field_name=None, login_url='/login')
+@require_http_methods(["GET", "POST"])
+def edit_recipe(request, pk):
+    response = {'action': '/recipe/' + pk}
+    recipe = Recipe.objects.get(pk=pk)
+    recipe_form = EditRecipeForm(instance=recipe, initial={'user': request.user})
+
+    if request.method == "POST":
+        recipe_form = AddRecipeForm(request.POST, instance=recipe)
+        if recipe_form.is_valid():
+            recipe_form.save()
+            response['message'] = 'You edited your recipe!'
+
+        else:
+            message = 'There were form errors:<br/>'
+            for error in recipe_form.errors:
+                message += str(error) + '<br/>'
+
+            response['error_message'] = message
+
+    response['form'] = recipe_form
+    return render(request, 'partials/edit_recipe.tpl.html', response)
+
+
+@login_required(function=None, redirect_field_name=None, login_url='/login')
+@require_http_methods(["GET", "POST"])
 def add_recipe(request):
-    response = {}
-    user = request.user
-    response['recipes'] = Recipe.objects.all()
+    response = {'action': '/recipe/add'}
+    recipe_form = AddRecipeForm(initial={'user': request.user})
+
+    if request.method == "POST":
+        recipe_form = AddRecipeForm(request.POST)
+        if recipe_form.is_valid():
+            recipe_form.save()
+            return redirect('/recipes')
+        else:
+            message = 'There were form errors:<br/>'
+            for error in recipe_form.errors:
+                message += str(error) + '<br/>'
+
+            response['error_message'] = message
+
+    # recipeForm.fields['user'].widget = recipeForm.HiddenInput()
+    response['form'] = recipe_form
     return render(request, 'partials/add_recipe.tpl.html', response)
+
+
+@login_required(function=None, redirect_field_name=None, login_url='/login')
+@require_http_methods(["GET", "POST"])
+def delete_recipe(request, pk):
+    recipe = Recipe.objects.get(pk=pk)
+
+    if request.method == "POST":
+        recipe.delete()
+        request.session['message'] = 'You deleted the recipe!'
+        return redirect('/recipes')
+
+    response = {'action': '/recipe/delete/' + pk}
+    response['recipe'] = recipe
+    return render(request, 'partials/delete_recipe.tpl.html', response)
 
 
 @login_required(function=None, redirect_field_name=None, login_url='/login')
 def add_ingredient(request, recipe_id):
     return render(request, 'partials/add_ingredient.tpl.html')
-
-
-@login_required(function=None, redirect_field_name=None, login_url='/login')
-def edit_recipe(request, pk):
-    response = {}
-    user = request.user
-    response['recipes'] = Recipe.objects.get(pk=pk)
-    return render(request, 'partials/edit_recipe.tpl.html', response)
