@@ -223,7 +223,7 @@ def home(request):
 @login_required(function=None, redirect_field_name=None, login_url='/login')
 def recipe_list(request):
     response = {}
-    if request.session['message']:
+    if 'message' in request.session and request.session['message']:
         response['message'] = request.session['message']
         request.session.message = None
 
