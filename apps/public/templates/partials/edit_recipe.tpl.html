@@ -7,23 +7,24 @@
 {% block recipe_link %}
     <li class="active"><a href="recipes">Edit Recipe</a></li>
 {% endblock recipe_link %}
+
 {% block content %}
     <div ng-controller="RecipeController">
         <form class="form-inline">
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.name" placeholder="Name"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.description"
+            <input  type="text" class="form-control" ng-model="recipe.name" placeholder="Name"/><br/>
+            <input type="text" class="form-control" ng-model="recipe.description"
                    placeholder="Description"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.link" placeholder="Link"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.prep_time"
+            <input  type="text" class="form-control" ng-model="recipe.link" placeholder="Link"/><br/>
+            <input  type="text" class="form-control" ng-model="recipe.prep_time"
                    placeholder="Prep_Time"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.instruction"
+            <input  type="text" class="form-control" ng-model="recipe.instruction"
                    placeholder="Instruction"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.temp" placeholder="Temp"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.time" placeholder="Time"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="recipe.serv_size"
+            <input  type="text" class="form-control" ng-model="recipe.temp" placeholder="Temp"/><br/>
+            <input  type="text" class="form-control" ng-model="recipe.time" placeholder="Time"/><br/>
+            <input  type="text" class="form-control" ng-model="recipe.serv_size"
                    placeholder="Serving Size"/><br/>
-            <input type="todo-title" type="text" class="form-control" ng-model="todo.description"
-                   placeholder="Todo Description"/></br><br/>
+            <input  type="text" class="form-control" ng-model="todo.description"
+                   placeholder="Todo Description"/><br/>
             <button id="edit-btn" class="btn btn-success" ng-click="editRecipe(recipe);">Edit</button>
         </form>
     </div>

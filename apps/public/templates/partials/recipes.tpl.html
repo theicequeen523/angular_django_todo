@@ -30,7 +30,7 @@
                     <tr ng-repeat="recipe in recipe_list | filter:query">
                         <td class="left-align"><button id="delete-btn" class="btn btn-danger" ng-click="removeRecipe(recipe);"></a>Delete</button></td>
                         <td class="left-align"><button id="edit-btn" class="btn btn-warning"><a href="/edit_recipe"></a>Edit</button></td>
-                        <td class="left-align"><button id="view-btn" class="btn btn-success"><a href="/recipe/"></a>View</button></td>
+                        <td class="left-align"><button id="view-btn" class="btn btn-success"><a href="/recipes/{{ recipe.id }}">View</a></button></td>
                         <td ng-bind="recipe.name" class="left-align"></td>
                         <td ng-bind="recipe.description" class="left-align"></td>
                         <td ng-bind="recipe.time" class="left-align"></td>

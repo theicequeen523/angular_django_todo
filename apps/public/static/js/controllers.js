@@ -34,6 +34,7 @@ angular.module('todoApp.controllers', [])
 
     .controller('RecipeController', ['$scope', '$http', 'Restangular', 'SessionService', '$location', function ($scope, $http, Restangular, SessionService, $location) {
         $scope.recipe = {
+            id: '',
             name: '',
             description: '',
             link: '',
@@ -70,6 +71,7 @@ angular.module('todoApp.controllers', [])
             for (var i = 0; i < data.length; i++) {
                 var recipe = data[i].fields;
                 recipe['id'] = data[i].pk;
+                console.log('id '+data[i].pk);
 //                if (!recipe['description']) {
 //                    recipe['description'] = 'Empty';
 //                }
@@ -199,4 +201,80 @@ angular.module('todoApp.controllers', [])
                 $scope.todos.push(todo);
             }
         }
+    }])
+
+
+    .controller('IngredientController', ['$scope', '$http', 'Restangular', 'SessionService', '$location', function ($scope, $http, Restangular, SessionService, $location) {
+        $scope.ingredient = {
+            name: '',
+            link: '',
+            flavor: '',
+            glyc_index : ''
+        }
+
+        $scope.user = SessionService.getUserSession();
+        var baseRecipe = Restangular.all('api/recipe');
+        var baseTag = Restangular.all('api/tag');
+        var baseIngredient = Restangular.all('api/ingredient');
+
+
+        baseTag.customGETLIST()
+            .then(function (data) {
+                $scope.tags = data;
+        });
+
+
+        baseRecipe.customGETLIST()
+            .then(function (data) {
+                $scope.recipes = data;
+        });
+
+
+        baseIngredient.customGETLIST($scope.user.user_id)
+            .then(function (listResponse) {
+//                console.log(data)
+                reloadRecipes(listResponse);
+
+            });
+
+        function reloadRecipes(data) {
+            // Reloads the list of recipes into an array usable on the scope.
+
+            $scope.recipe_list = [];
+            for (var i = 0; i < data.length; i++) {
+                var recipe = data[i].fields;
+                recipe['id'] = data[i].pk;
+//                if (!recipe['description']) {
+//                    recipe['description'] = 'Empty';
+//                }
+                $scope.recipe_list.push(recipe);
+            }
+        }
+           function reloadTags(data) {
+            $scope.tags = [];
+            for (var i = 0; i < data.length; i++) {
+                var tag = data[i].fields;
+                tag['id'] = data[i].pk;
+                $scope.tags.push(tag);
+            }
+        }
+
+        $scope.user = SessionService.getUserSession();
+        $scope.addRecipe = function (recipe) {
+            baseRecipe.all($scope.user.user_id).customPOST(recipe)
+                .then(function (data) {
+//                    reloadRecipe(data);
+//                        toastr.success('You successfully added a new recipe!');
+                    window.location = '/recipes';
+                });
+        }
+
+        $scope.removeRecipe = function (recipe) {
+            baseRecipe.all($scope.user.user_id).remove(recipe)
+                .then(function (data) {
+                    reloadRecipes(data);
+
+                    toastr.success('You successfully removed your recipe!');
+                });
+        };
     }]);

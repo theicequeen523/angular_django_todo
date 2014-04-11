@@ -5,7 +5,9 @@
 {% endblock title %}
 
 {% block recipe_link %}
-    <li class="active"><a href="/recipes">Recipe Detail</a></li>
+    <li class="active">
+        <a href="/recipes">Recipe Detail</a>
+    </li>
 {% endblock recipe_link %}
 
 {% block content %}
@@ -17,6 +19,7 @@
             </tr>
             <tr>
                 <th>Description</th>
+            </tr>
             <tr>
                 <th>Link</th>
             </tr>
@@ -59,7 +62,10 @@
 
                     <td>{{ recipe_detail.prep_time }}</td>
 
-                    <td>{{ recipe_detail.ingredient }}</td>
+                    <td>
+                        {{ recipe_detail.ingredient }}
+                        <a href="/add_ingredient/{{ recipe_detail.id }}">Add Ingredient</a>
+                    </td>
 
                     <td>{{ recipe_detail.instruction }}</td>
 

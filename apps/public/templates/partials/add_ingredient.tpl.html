@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Add Ingredient
+{% endblock title %}
+
+{% block add_ingredient_link %}
+    <li class="active"><a href="/add_ingredient">Add Ingredient</a></li>
+{% endblock add_ingredient_link %}
+
+{% block content %}
+    <div ng-controller="IngredientController">
+        <form class="form-inline">
+            <input type="text" class="form-control" ng-model="ingredient.name" placeholder="Name"/><br/>
+            <input type="text" class="form-control" ng-model="ingredient.link" placeholder="Link"/><br/>
+            <input type="text" class="form-control" ng-model="ingredient.flavor" placeholder="Flavor"/><br/>
+            <input type="text" class="form-control" ng-model="ingredient.glyc_index" placeholder="Glycemic Index"/><br/>
+            </br>
+            <select type="text" ng-model="ingredient.recipe" ng-options="recipe.pk as recipe.fields.name for recipe in recipes"></select>
+            <select type="text" ng-model="ingredient.tag" ng-options="tag.pk as tag.fields.name for tag in tags"></select>
+
+            </br>
+            </br>
+            </br>
+            <button id="add-btn" class="btn btn-success" ng-click="addIngredient(ingredient);">Add Ingredient</button>
+        </form>
+    </div>
+{% endblock content %}

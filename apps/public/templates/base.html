@@ -66,18 +66,21 @@
                             <li><a href="/add_recipe">Add Recipe</a></li>
                         {% endblock add_recipe_link %}
 
+                        {% block add_ingredient_link %}
+                            <li><a href="/add_ingredient">Add Ingredient</a></li>
+                        {% endblock add_ingredient_link %}
+
                         {% block my_account_link %}
                             <li><a href="/my_account" {{ user.first_name }} {{ user.last_name }}>My Account</a></li>
-                        {% endblock my_account_link %}</a>
+                        {% endblock my_account_link %}
 
                         {% block log_out %}
                             <li><a href="javascript:void(0);" ng-click="doLogout();">Log Out</a></li>
-                        {% endblock log_out %}</a>
-                        </li>
+                        {% endblock log_out %}
+
                     {% endif %}
                 </ul>
             </div>
-            <!--/.nav-collapse -->
         </div>
     </div>
 {% endblock navigation %}

@@ -219,6 +219,7 @@ def home(request):
     return render(request, 'partials/home.tpl.html')
 
 
+@login_required(function=None, redirect_field_name=None, login_url='/login')
 def recipe_list(request):
     response = {}
     user = request.user
@@ -226,18 +227,25 @@ def recipe_list(request):
     return render(request, 'partials/recipes.tpl.html', response)
 
 
+@login_required(function=None, redirect_field_name=None, login_url='/login')
 def recipe_detail(request, pk):
     response = {}
-    user = request.user
-    response['recipes'] = Recipe.objects.get(pk=pk)
+    response['recipe_detail'] = Recipe.objects.get(pk=pk)
     return render(request, 'partials/recipe_detail.tpl.html', response)
 
 
+@login_required(function=None, redirect_field_name=None, login_url='/login')
 def add_recipe(request):
     response = {}
     user = request.user
     response['recipes'] = Recipe.objects.all()
     return render(request, 'partials/add_recipe.tpl.html', response)
+
+
+@login_required(function=None, redirect_field_name=None, login_url='/login')
+def add_ingredient(request, recipe_id):
+    return render(request, 'partials/add_ingredient.tpl.html')
+
 
 @login_required(function=None, redirect_field_name=None, login_url='/login')
 def edit_recipe(request, pk):
